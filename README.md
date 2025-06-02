@@ -12,7 +12,7 @@
 <details><summary><font size="6"><b>1) About, credits, and other information</b></font></summary>
   <br>
   <br>
-  This HPC tutorial is based largely upon the NEOF Shotgun Metagenomics written by Sam Haldenby and Matthew R. Gemmell.
+  This HPC tutorial is based largely upon the NEOF Shotgun Metagenomics Workshop written by Sam Haldenby and Matthew R. Gemmell.
   
   Whilst it has been written for use with The University of Sheffield's
   [BESSEMER](https://docs.hpc.shef.ac.uk/en/latest/bessemer/index.html) system,
