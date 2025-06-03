@@ -130,15 +130,15 @@
 
   ```
   ls scripts/01*
-  scripts/01_remove_Ns.R  scripts/01_run_remove_Ns.sh
+  scripts/02_fastqc_submit.sh  scripts/02_fastqc.sh
   ```
 
-  To add our 'remove Ns' job to the job scheduler, we would submit the shell script using 'qsub'
+  To add our 'fastqc' job to the job scheduler, we would submit the shell script using 'qsub'
   (don't do this yet, simply an example).
 
   ```
   ## EXAMPLE, DON'T RUN
-  qsub scripts/01_run_remove_Ns.sh
+  qsub scripts/02_fastqc_submit.sh
   ```
 
   We could then view the job that we have submitted to the job queue using 'squeue'.
@@ -157,8 +157,8 @@
   <br>
   <font size="4"><b>2.6) Passing command line arguments to a script</b></font>
   <br>
-  As well as running the standardised dada2 scripts there are some parameters which will be unique to you, or
-  your project. For example, these might be your primer sequences or trimming parameters.<br>
+  As well as running the standardised scripts there are some parameters which will be unique to you, or
+  your project. For example, these might be your genome file name or trimming parameters.<br>
 
   To run a script with these extra parameters (termed 'arguments') we supply them on the command line with a 'flag'.
   For example, you might supply your email address to a script using the '-E' flag as
