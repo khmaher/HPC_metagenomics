@@ -315,7 +315,6 @@
  <details><summary><font size="6"><b>5)  QC and data trimming</b></font></summary>
   <br>
   <br>    
- <br>
   <font size="4"><b>5.1) Initial quality checking</b></font>
   <br>
   The next step is to check the quality of your fastq files and then perform quality trimming.
