@@ -295,20 +295,8 @@
   source ~/.bash_profile
   bwa index genome/genome_name.fa
   ```
+
    
-
-
-
-
-
-
-
-
-
-
-
-
-
 </details>
   <br> 
        
