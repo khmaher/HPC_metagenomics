@@ -297,3 +297,157 @@
   ```
    
 
+
+
+
+
+
+
+
+
+
+
+
+
+</details>
+  <br> 
+       
+ <details><summary><font size="6"><b>6)  QC and data trimming</b></font></summary>
+  <br>
+  <br>    
+ 
+  The next step is to check the quality of your fastq files and then perform quality trimming.
+  
+  First you will run the script to generate the quality plots. This first runs [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) on each sample separately. 
+  [MultiQC](https://multiqc.info) is then run to generate a combined quality plot. Two MultiQC plots are generated, one for all forward reads and one for reverse reads. These 
+  can be found in the 'fastqc' folder when the script has finished running.
+  <br><br>
+  <b>The command line arguments you must supply are:</b><br>
+  - the file extension for your forward reads (-f)
+  - the file extension for your reverse reads (-r)
+  <br><br>
+  
+   <br>
+  
+  
+  ```   
+ qsub scripts/03_fastqc.sh -f _1.fastq.gz -r _2.fastq.gz
+  ``` 
+  
+  <br>
+  For most datasets:
+
+- The quality decreases towards the end of the reads
+- The R2 reads have poorer quality than the R1 reads
+- The read sizes have a range compared to all being one size. However, most of the reads are towards the long end of the range.
+
+  Generally, even if data is looking good we would carry out quality control to get rid of any poor data that is masked by the very good data and to remove any adapter sequences.
+   <br>
+   <br>
+  In the next step we will carry out quality control for the fastq files. 
+  
+  Quality control generally comes in two forms:
+
+  1. Trimming: This is directly cutting off bits of sequence. This is typical in the form of trimming off low quality bases from the end of reads and trimming off adapters at the start of reads.
+  2. Filtering: This occurs when entire reads are removed. A typical occurrence of this is when a read is too short as we do not want reads below a certain length.
+
+  To carry this out, we are going to use [Trimmomatic](http://www.usadellab.org/cms/index.php?page=trimmomatic).
+
+  
+  <br>
+  To run Trimmomatic we will use the '04_trimmomatic.sh' script. This has many optional parameters you can use for filtering and trimming your data. 
+  By default this script assumes you are using paired end daya and the phred quality encoding is phred33 (like most Illumina data).
+  <br>
+  <b>The command line arguments you must supply are:</b><br>
+  
+  - the file extension for your forward reads (-f)
+  - the file extension for your reverse reads (-r)
+  <br><br>
+  
+  <b>Optionally, you can also supply:</b><br>
+  
+  - parameters for ILLUMINACLIP (-k).
+  - parameters for SLIDINGWINDOW (-s)
+  - parameters for LEADING (-l)
+  - parameters for TRAILING (-t)
+  - parameters for CROP (-c)
+  - parameters for HEADCROP (-h)
+  - parameters for MINLEN (-m) 
+  <br><br>
+
+  More details of the optional parameters can be found below or in the [trimmomatic manual](http://www.usadellab.org/cms/index.php?page=trimmomatic)
+  
+  - ILLUMINACLIP: These settings are used to find and remove Illumina adapters. First, a fasta file of known adapter sequences is given, followed by the number of mismatches allowed between the adapter and read sequence and then thresholds for how accurate the alignment is between the adapter and read sequence.
+  - SLIDINGWINDOW: This specifies to scan the read quality over a 4 bp window, cutting when the average quality drops below 30.
+  - LEADING: The minimum quality value required to keep a base at the start of the read.
+  - TRAILING: The minimum quality value required to keep a base at the end of the read.
+  - CROP: Cut the read to a specified length
+  - HEADCROP: Cut the specified number of bases from the start of the read
+  - MINLEN: This specifies the minimum length of a read to keep; any reads shorter than 50 bp are discarded.
+    <br><br>
+  An example of how to run 'trimmomatic' can be found below. Ensure the 'TruSeq3-PE-2.fa' located in the 'scripts' directory is moved to your 'my_project' directory before running this command.
+ 
+  The trimmed files can be found in the 'trim' directory when complete.
+ 
+ <br><br>
+ 
+ ```   
+ qsub scripts/04_trimmomatic.sh -f _1.fastq.gz -r _2.fastq.gz \
+ -k ILLUMINACLIP:TruSeq3-PE-2.fa:2:30:12 \
+ -s SLIDINGWINDOW:4:30 \
+ -m MINLEN:80
+ ``` 
+ <br>
+ </details>
+ <br>
+   
+ <details><summary><font size="6"><b>7)  Re-check quality</b></font></summary>
+  <br>
+  <br> 
+
+  Now we have run trimmomatic we can check how successful our quality control has been but running fastQC and MultiQC again. These 
+  can be found in the 'fastqc2' folder when the script has finished running.
+   <br><br>
+  
+   <br> 
+
+  ```   
+ qsub scripts/05_fastqc2.sh
+  ```   
+  <br><br>
+  If you are not satisfied with the quality or number of reads retained after filtering you can go back to the trimmomatic step and repeat the quality control but changing the parameters.
+  
+  </details>
+  <br>
+  
+ <details><summary><font size="6"><b>8) Align short reads to the reference genome</b></font></summary>
+  <br>
+  <br>  
+ 
+ We are now ready to map our reads to our reference genome. To do this we will use BWA to align our trimmed sequences to our reference genome.
+ <br>
+ We have already indexed our genome when we downloaded it. You should have index files with the  extensions '.sa', '.pac', '.ann', '.amb' and '.bwt' that will be automatically detected and used in the mapping step below. 
+ 
+ bwa mem is an alignment algorithm well suited to Illumina-length sequences. The default output is a SAM (Sequence Alignment Map format). 
+ However, here we pipe the output to samtools, a program for writing, viewing and manipulating alignment files, to sort and generate a BAM format, a binary, compressed version of SAM format.
+ <br>
+ The following script will first map our paired end data generated from trimmomatic to our reference, it will then combine the single end orphan reads into a single file and map those to the genome. 
+ The resulting BAM files are then combined into a single file which will be used in the next step to call SNPs.
+ 
+  <br>
+  <b>The command line argument you must supply is:</b><br>
+  - the name of your reference genome (-g)
+   <br><br>
+  
+   <br>
+ 
+  ```   
+ qsub scripts/06_align.sh -g GCA_017639245.1_MMon_1.0_genomic.fna.gz
+  ```  
+  
+  <br>
+  When the 06_align.sh has finished running your BAM files will be located in the 'aligned' folder.
+ 
+  </details>
+  <br>
+ 
