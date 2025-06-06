@@ -440,4 +440,10 @@
   <br>
   When the 05_align.sh has finished running your BAM files will be located in the 'aligned' folder.
  
+  <br>
+  <br>  
+  <font size="4"><b>6.2) Unmapped read extraction</b></font>
+  <br>
+  Now we have aligned our reads to our host genome we will be able to remove the mapped reads/retain the unmapped reads. The unmapped reads should mostly be the reads from our target taxa of interest.
   
+  We will perform this using samtools fastq.
