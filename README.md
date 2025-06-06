@@ -416,13 +416,15 @@
   <br>  
   <font size="4"><b>6.1) Alignment</b></font>
   <br>
-  To remove the host sequences we must first align our reads to the host genome. To do this we will use BWA to align our trimmed sequences to our reference genome.
+  To remove the host sequences we must first align our reads to the host genome. To do this we will use [BWA](https://github.com/lh3/bwa) to align our trimmed sequences to our reference genome.
  <br>
+      
  We have already indexed our genome when we downloaded it. You should have index files with the  extensions '.sa', '.pac', '.ann', '.amb' and '.bwt' that will be automatically detected and used in the mapping step below. 
  
  bwa mem is an alignment algorithm well suited to Illumina-length sequences. The default output is a SAM (Sequence Alignment Map format). 
  However, here we pipe the output to samtools, a program for writing, viewing and manipulating alignment files, to sort and generate a BAM format, a binary, compressed version of SAM format.
  <br>
+ 
  The following script will first map our paired end data generated from trimmomatic to our reference, it will then combine the single end orphan reads into a single file and map those to the genome. 
  The resulting BAM files are then combined into a single file which will be used in the next step to call SNPs.
  
