@@ -344,7 +344,7 @@
   1. Trimming: This is directly cutting off bits of sequence. This is typical in the form of trimming off low quality bases from the end of reads and trimming off adapters at the start of reads.
   2. Filtering: This occurs when entire reads are removed. A typical occurrence of this is when a read is too short as we do not want reads below a certain length.
 
-  To carry this out, we are going to use [Trimmomatic](http://www.usadellab.org/cms/index.php?page=trimmomatic) .
+  To carry this out, we are going to use [Trimmomatic](http://www.usadellab.org/cms/index.php?page=trimmomatic).
 
   
   <br>
@@ -447,4 +447,4 @@
   <br>
   Now we have aligned our reads to our host genome we will be able to remove the mapped reads/retain the unmapped reads. The unmapped reads should mostly be the reads from our target taxa of interest.
   
-  We will perform this using samtools fastq.
+  We will perform this using <b>samtools fastq</b>.
