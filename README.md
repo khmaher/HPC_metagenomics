@@ -344,7 +344,7 @@
   1. Trimming: This is directly cutting off bits of sequence. This is typical in the form of trimming off low quality bases from the end of reads and trimming off adapters at the start of reads.
   2. Filtering: This occurs when entire reads are removed. A typical occurrence of this is when a read is too short as we do not want reads below a certain length.
 
-  To carry this out, we are going to use [Trimmomatic](http://www.usadellab.org/cms/index.php?page=trimmomatic).
+  To carry this out, we are going to use [Trimmomatic](http://www.usadellab.org/cms/index.php?page=trimmomatic) .
 
   
   <br>
@@ -417,7 +417,6 @@
   <font size="4"><b>6.1) Alignment</b></font>
   <br>
   To remove the host sequences we must first align our reads to the host genome. To do this we will use [BWA](https://github.com/lh3/bwa) to align our trimmed sequences to our reference genome.
- <br>
       
  We have already indexed our genome when we downloaded it. You should have index files with the  extensions '.sa', '.pac', '.ann', '.amb' and '.bwt' that will be automatically detected and used in the mapping step below. 
  
