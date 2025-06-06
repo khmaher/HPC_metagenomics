@@ -417,8 +417,7 @@
   <font size="4"><b>6.1) Alignment</b></font>
   <br>
   To remove the host sequences we must first align our reads to the host genome. To do this we will use [BWA](https://github.com/lh3/bwa) to align our trimmed sequences to our reference genome.
- 
-      <br>
+ <br>
       
  We have already indexed our genome when we downloaded it. You should have index files with the  extensions '.sa', '.pac', '.ann', '.amb' and '.bwt' that will be automatically detected and used in the mapping step below. 
  
