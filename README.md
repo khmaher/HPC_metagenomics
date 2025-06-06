@@ -182,46 +182,56 @@
   mkdir /fastdata/$USER/my_project/raw_data
   mkdir /fastdata/$USER/my_project/genome
   ```
-  <br>
+<br>
   <font size="4"><b>3.2) Required data inputs</b></font>
   <br>
   For this workflow, you need to provide the raw, paired-end DNA sequence data
-  and also a suitably formatted reference database applicable to your choice of metabarcoding
-  marker.
-  The dada2 authors maintain some correctly formatted databases at (https://benjjneb.github.io/dada2/training.html)
-  although these are (currently) only suitable for 16S markers.
+  and also a reference genome to align this data to.
   <br>
   <br>
   <font size="4"><b>3.3) Load required data onto the HPC</b></font>
-  If you have sequenced your samples with NEOF, and have been notified that your data
-  has been received, then you should be able to find your data on the HPC server.
+  <br>
+  There are a couple of ways to get access to your data. If you have generated the data/genome
+  yourself/through NEOF you will need to copy this over to your raw data folder. 
+  
+  If this is the case you need to contact NEOF staff and they will be able to tell you 
+  where to copy this data from.
 
-  Please talk to us about where you should copy your data from.
-
-  If, for example, your data directory was called 'NBAF_project_010122', then you would
-  copy it onto your raw_data directory with the following:
+  If, for example, your data directory was called 'NEOF_project_010123' and the genome directory 
+  'genome_010123', then you would copy it onto your raw_data and genome directories with the following:
+  
   ```
-  cp -r /fastdata/bo4kma_shared/NBAF_project_010122/ /fastdata/$USER/my_project/raw_data/
+  cp -r /fastdata/bo4kma_shared/NEOF_project_010122/* /fastdata/$USER/my_project/raw_data/
+  cp -r /fastdata/bo4kma_shared/genome_010123/* /fastdata/$USER/my_project/genome/
   ```
 
   Alternatively, to copy data from your personal computer onto the HPC you need to use a file transfer
   application such as 'scp' (advanced), MobaXterm, or [FileZilla](https://filezilla-project.org/).
-  Ensure to copy the data into your '/fastdata/<user>my_project/raw_data folder'.
+  Ensure to copy the data into your '/fastdata/<user>my_project/raw_data' folder and genome into 
+  '/fastdata/<user>my_project/genome' folder.
+  
+  Another option is to download the data from a data repository such as the [NCBI SRA](https://www.ncbi.nlm.nih.gov/sra). More on this below.
 
   Run 'ls' on your 'raw_data' folder and you should see something like the following
+  
   ```
   ls raw_data
-  # sample1_S1_R1_001.fq.gz
-  # sample1_S1_R2_001.fq.gz
-  # sample2_S2_R1_001.fq.gz
-  # sample2_S2_R2_001.fq.gz
+  # sample1_R1_001.fq.gz
+  # sample1_R2_001.fq.gz
+  # sample2_R1_001.fq.gz
+  # sample2_R2_001.fq.gz
   ```
   
-  Make sure that you have removed any `tar.gz` files and any files labelled unclassified, e.g. `Unclassified_R1` `Unclassified_R2` 
+  Run 'ls' on your 'genome' folder and you should see something like the following
+  
+  ```
+  ls genome
+  # genome.fasta
+  ```
+  
+  Make sure that you have removed any `tar.gz` files and any files labelled unclassified, e.g. `Unclassified_R1` `Unclassified_R2`. 
   <br>
 
-  <font size="4"><b>3.4) Data file naming convention</b></font>
-  <br>
   The workflow assumes that the '/fastdata/<user>my_project/raw_data' directory contains sequence data that is:
 
   * Paired (two files per biological sample)
@@ -232,104 +242,54 @@
 
   * (optional, but recommended) in the compressed .gz format
 
-  Each pair of files relating to each biological sample should ideally have the following naming convention:
-  <br>
-  <i>(although any convention with consistent naming of R1 and R2 files is acceptable).</i>
-  ```
-  <sample_ID>_S<##>_R1_001.fastq.gz
-
-  <sample_ID>_S<##>_R2_001.fastq.gz
-  ```
-
-  Where \<sample_ID\> is a unique identifier, and S<##> is a sample number (generally assigned by the sequencer itself).
-
-  For example, a pair of files might look like this:
-
-  ```
-  SoilGB_S01_R1_001.fastq.gz
-
-  SoilGB_S01_R2_001.fastq.gz
-  ```
-
-  <br><br>
-  <font size="4"><b>3.5) Automatic detection of file extensions</b></font>
-  <br>
-  The scripts below attempt to determine which are your paired 'R1' files and
-  which are the paired 'R2' files automatically based on their file names. During the
-  first step (N-removal), a log file named something
-  like "01_run_remove_Ns.o2658422" will be generated which contains the automatically
-  detected extensions.
-  <br><br>
-  If the extensions automatically detected are correct, you do not need to do
-  anything. If they are incorrect then you can override the automatic process
-  by specifying the R1 extensions (-W) and the R2 (-P) extensions.
-  <br><br> This automatic detection occurs throughout the workflow but you can
-  specify the extensions at steps where they are required using -W and -P if necessary.
   <br>
   <br>
-  <b><font size="4">3.6) Copy the dada2 R scripts</b></font>
+  <b><font size="4">3.4) Copy the analysis scripts</b></font>
   <br>
   Download the scripts from this github repository and then copy them into your scripts folder. You can then delete the github download.
 
   ```
-  git clone "https://github.com/khmaher/HPC_dada2"
-  cp HPC_dada2/scripts/* /fastdata/$USER/my_project/scripts
-  rm -r HPC_dada2
+  git clone "https://github.com/ewan-harney/SNPs-discovery-for-Fluidigm"
+  cp SNPs-discovery-for-Fluidigm/scripts/* /fastdata/$USER/my_project/scripts
+  rm -rf SNPs-discovery-for-Fluidigm
   ```
+   </details>
   <br>
-  </details>
-<br>
-<details><summary><font size="6"><b>4) Check required files and perform preliminary filtering.</font></b></summary>
+ 
+ <details><summary><font size="6"><b>4)  Download reference genome</b></font></summary>
   <br>
   <br>
-  <font size="4"><b>4.1) Check files and activate R environment</b></font>
-  <br>
-  Ensure that:
-
-  * you are in the 'my_project' directory
-
-  * you have the 'raw_data', 'scripts', 'working_data', and 'R objects' directories present
-
-  * the 'raw_data' directory contains your sequence files
-
-  * the 'scripts' directory contains the R (.R files) and shell scripts (.sh files).
-
-  ```
-  pwd
-  # /fastdata/$USER/my_project
-
-  ls
-  # raw_data  scripts   working_data  R_objects
-
-  ls raw_data/
-  # raw_input_file_S01_001_R1.fastq.gz
-  # raw_input_file S01_001_R2.fastq.gz
-  # [.... lots more data files here....]
-
-  ls scripts/
-  #00_run_full_pipeline.sh  
-  #01_remove_Ns.R
-  #01_run_remove_Ns.sh
-  # [.... lots more data scripts here....]
-
-
-  ```
-  You should also be able to load the R environment without seeing any error messages:
-  ```
-  source ~/.bash_profile
-  conda activate /usr/local/extras/Genomics/apps/mambaforge/envs/metabarcoding
-  ```
   
-  You should see the environment "metabarcoding" at the start of your terminal prompt, e.g. `(metabarcoding) [USERNAME@bessemer-node001]` 
+  Now we are set up we are ready to start preparing your data. The first thing you want to do is to add your reference genome. 
   <br>
-  If any of this is missing, go back to section 3 above and double check everything.
+  If you have not generated the genome file yourself and it is available on a public repository you can use the 
+  '01_download_geome.sh' script. 
   <br>
-  <br>
-  <font size="4"><b>4.2 Remove reads with Ns</b></font>
-  <br>
-  Dada2 requires reads which do not contain any N characters. An N may be introduced
-  into a sequence read when the sequencing software is unable to confidently basecall
-  that position. This will likely be a small proportion of the sequence reads in the input
-  files.
-
+  This script downloads your genome and then indexes it using [bwa index](https://bio-bwa.sourceforge.net/bwa.shtml) ready for aligning your data later.
+    <br><br>
+  To download your genome, submit the '01_download_geome.sh' script as shown below. First remember to navigate to your '/fastdata/$USER/my_project' directory
   <br><br>
+  <b>The command line arguments you must supply are:</b><br>
+  - the download link for your genome (-w)
+  - the file name for your genome (-g)
+  <br><br>
+  
+  ``` 
+ qsub scripts/01_download_genome.sh \
+ -w https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/017/639/245/GCA_017639245.1_MMon_1.0/GCA_017639245.1_MMon_1.0_genomic.fna.gz \
+ -g GCA_017639245.1_MMon_1.0_genomic.fna.gz
+  ```
+ 
+ When the script has finished running you should have a genome and index files in your genome directory. 
+ 
+ <br>
+ If you have added your genome to your genome folder manually you can index it by typing the following into the command line.
+ 
+ <br><br>
+  
+  ``` 
+  source ~/.bash_profile
+  bwa index genome/genome_name.fa
+  ```
+   
+
