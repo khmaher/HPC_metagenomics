@@ -404,13 +404,10 @@
  -s SLIDINGWINDOW:4:30 \
  -m MINLEN:80
  ``` 
- <br>
- </details>
- <br>
-   
-   <br>
+
+<br>
   <br>
-  <font size="4"><b>3.4) Re-check the quality</b></font>
+  <font size="4"><b>5.4) Re-check the quality</b></font>
   <br>
 
   Now we have run trimmomatic we can check how successful our quality control has been but running fastQC and MultiQC again. These 
