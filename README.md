@@ -411,6 +411,6 @@
   </details>
   <br>
   
- <details><summary><font size="6"><b>5)  Host removal</b></font></summary>
+ <details><summary><font size="6"><b>6)  Host removal</b></font></summary>
   <br>
   <br>  
