@@ -445,6 +445,9 @@
   <br>  
   <font size="4"><b>6.2) Unmapped read extraction</b></font>
   <br>
+  
+  We can check our mapping efficacy using [samtools flagstat](https://www.htslib.org/doc/samtools-flagstat.html). This produces a file which contains information on the number of reads that have mapped to the host genome.
+  
   Now we have aligned our reads to our host genome we will be able to remove the mapped reads/retain the unmapped reads. The unmapped reads should mostly be the reads from our target taxa of interest.
   
   We will perform this using <b>samtools fastq</b>. We use the -f parameter to output only reads that contain the specified SAM flag.
@@ -456,5 +459,5 @@
  <br>
  
   ```   
- qsub scripts/07_align.sh -g GCA_017639245.1_MMon_1.0_genomic.fna.gz
+ qsub scripts/06_remove_host.sh
   ```  
