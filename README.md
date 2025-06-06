@@ -320,7 +320,7 @@
   
   
   ```   
- qsub scripts/03_fastqc.sh -f _1.fastq.gz -r _2.fastq.gz
+ qsub scripts/02_fastqc.sh -f _1.fastq.gz -r _2.fastq.gz
   ``` 
   
   <br>
@@ -385,7 +385,7 @@
  <br><br>
  
  ```   
- qsub scripts/04_trimmomatic.sh -f _1.fastq.gz -r _2.fastq.gz \
+ qsub scripts/03_trimmomatic.sh -f _1.fastq.gz -r _2.fastq.gz \
  -k ILLUMINACLIP:TruSeq3-PE-2.fa:2:30:12 \
  -s SLIDINGWINDOW:4:30 \
  -m MINLEN:80
@@ -403,7 +403,7 @@
    <br> 
 
   ```   
- qsub scripts/05_fastqc2.sh
+ qsub scripts/04_fastqc2.sh
   ```   
   <br><br>
   If you are not satisfied with the quality or number of reads retained after filtering you can go back to the trimmomatic step and repeat the quality control but changing the parameters.
