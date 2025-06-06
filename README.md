@@ -416,7 +416,7 @@
   <br>  
   <font size="4"><b>6.1) Alignment</b></font>
   <br>
-  To remove the host sequences we must first align our reads to the host genome. To do this we will use [BWA](https://github.com/lh3/bwa) to align our trimmed sequences to our reference genome.
+  To remove the host sequences we must first align our reads to the host genome. To do this we will use BWA to align our trimmed sequences to our reference genome.
       
  We have already indexed our genome when we downloaded it. You should have index files with the  extensions '.sa', '.pac', '.ann', '.amb' and '.bwt' that will be automatically detected and used in the mapping step below. 
  
@@ -449,7 +449,7 @@
   
   We will perform this using <b>samtools fastq</b>. We use the -f parameter to output only reads that contain the specified SAM flag.
   
-  In this case in our script we specify a SAM flag of 4 which stands for unmapped reads. Therefore, our resulting fastq files will only contain unmapped reads.
+  In this case in our script we specify a SAM flag of <b>4</b> which stands for unmapped reads. Therefore, our resulting fastq files will only contain unmapped reads.
   
   After we have discarded any mapped reads we use the [BBTools](https://archive.jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/) command <b>re-pair</b> to remove reads with a missing pair to ensure our output files have identical numbers of sequences in them.
 
