@@ -234,7 +234,9 @@
 
   * (optional, but recommended) in the compressed .gz format
   <br>
+  
   Run 'ls' on your 'genome' folder and you should see something like the following (if you have copied over a genome file that you have generated with NEOF).
+
   
   ```
   ls genome
