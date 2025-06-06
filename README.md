@@ -342,8 +342,7 @@
 - The quality decreases towards the end of the reads
 - The R2 reads have poorer quality than the R1 reads
 - The read sizes have a range compared to all being one size. However, most of the reads are towards the long end of the range.
-
-  <br>
+<br>
   <br>
   <font size="4"><b>5.2) Running trimmomatic</b></font>
   <br>
@@ -407,7 +406,7 @@
 
 <br>
   <br>
-  <font size="4"><b>5.4) Re-check the quality</b></font>
+  <font size="4"><b>5.3) Re-check the quality</b></font>
   <br>
 
   Now we have run trimmomatic we can check how successful our quality control has been but running fastQC and MultiQC again. These 
