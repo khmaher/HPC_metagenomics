@@ -100,9 +100,8 @@
   source ~/.bash_profile
   ```
   Upon re-loading, you should see the message relating to the Genomics Software Repository above.
-
   
-  <br>
+<br>
   <font size="4"><b>2.4) Set up your conda profile</b></font>
   <br>
   If you have never run conda before on the Bessemer you might have to initialise your conda, to do this type:
@@ -116,29 +115,13 @@
   
   <font size="4"><b>2.5) Running scripts on the HPC cluster</b></font>
   <br>
-  Each step in the following workflow consist of two separate scripts; an R script (file extension: .R)
-  and a shell script (file extension: .sh).
-  <br>
-  The R script contains the instructions to perform the dada2 analysis and by submitting it as a
-  script rather than individual commands, as you may be used to doing in RStudio, we can run lots
-  of steps in succession without requiring any additional input.
-  <br>
-  In order to submit a job to the high performance computing (HPC) cluster we need to wrap the R script
-  up in a shell script - this script requests resources and adds our job into the queue.
-
-  An example of a pair of these scripts can be seen in the 'scripts' directory
-
-  ```
-  ls scripts/01*
-  scripts/02_fastqc_submit.sh  scripts/02_fastqc.sh
-  ```
-
-  To add our 'fastqc' job to the job scheduler, we would submit the shell script using 'qsub'
-  (don't do this yet, simply an example).
+  
+  To add our job to the job scheduler, we would submit the shell scripts using 'qsub'
+  (don't do this its simply an example).
 
   ```
   ## EXAMPLE, DON'T RUN
-  qsub scripts/02_fastqc_submit.sh
+  qsub scripts/example_script.sh
   ```
 
   We could then view the job that we have submitted to the job queue using 'squeue'.
@@ -151,20 +134,19 @@
   The job will then receive the allocated resources, the task will run, and the appropriate output files generated.
   In the following workflow, since the output from a particular step is often the input for the next step, you need
   to wait for each job to finish before submitting the next.
-  You have the option to provide an email address to receive a notification when each job is complete.
 
 
   <br>
   <font size="4"><b>2.6) Passing command line arguments to a script</b></font>
   <br>
   As well as running the standardised scripts there are some parameters which will be unique to you, or
-  your project. For example, these might be your genome file name or trimming parameters.<br>
+  your project. For example, these might be your genome name.<br>
 
   To run a script with these extra parameters (termed 'arguments') we supply them on the command line with a 'flag'.
-  For example, you might supply your email address to a script using the '-E' flag as
+  For example, you might supply your genome file name to a script using the '-g' flag as
 
   ```
-  a_demo_script.sh -E <user>@university.ac.uk
+  a_demo_script.sh -g my_orgamism.fa
   ```
   </details>
   <br>
@@ -193,13 +175,12 @@
   mkdir -m 0755 /fastdata/$USER
   ```
 
-  Create new subdirectories to keep your scripts, data files, and R objects organised:
+  Create new subdirectories to keep your scripts and raw data organised:
   ```
   mkdir /fastdata/$USER/my_project
   mkdir /fastdata/$USER/my_project/scripts
   mkdir /fastdata/$USER/my_project/raw_data
-  mkdir /fastdata/$USER/my_project/working_data
-  mkdir /fastdata/$USER/my_project/R_objects
+  mkdir /fastdata/$USER/my_project/genome
   ```
   <br>
   <font size="4"><b>3.2) Required data inputs</b></font>
