@@ -435,7 +435,7 @@
    <br>
  
   ```   
- qsub scripts/06_align.sh -g GCA_017639245.1_MMon_1.0_genomic.fna.gz
+ qsub scripts/05_align.sh -g GCA_017639245.1_MMon_1.0_genomic.fna.gz
   ```  
   
   <br>
@@ -447,4 +447,14 @@
   <br>
   Now we have aligned our reads to our host genome we will be able to remove the mapped reads/retain the unmapped reads. The unmapped reads should mostly be the reads from our target taxa of interest.
   
-  We will perform this using <b>samtools fastq</b>.
+  We will perform this using <b>samtools fastq</b>. We use the -f parameter to output only reads that contain the specified SAM flag.
+  
+  In this case in our script we specify a SAM flag of 4 which stands for unmapped reads. Therefore, our resulting fastq files will only contain unmapped reads.
+  
+  After we have discarded any mapped reads we use the [BBTools](https://archive.jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/) command <b>re-pair</b> to remove reads with a missing pair to ensure our output files have identical numbers of sequences in them.
+
+ <br>
+ 
+  ```   
+ qsub scripts/07_align.sh -g GCA_017639245.1_MMon_1.0_genomic.fna.gz
+  ```  
