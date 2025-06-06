@@ -312,7 +312,7 @@
 </details>
   <br> 
        
- <details><summary><font size="6"><b>6)  QC and data trimming</b></font></summary>
+ <details><summary><font size="6"><b>5)  QC and data trimming</b></font></summary>
   <br>
   <br>    
  
@@ -401,7 +401,7 @@
  </details>
  <br>
    
- <details><summary><font size="6"><b>7)  Re-check quality</b></font></summary>
+ <details><summary><font size="6"><b>6)  Re-check quality</b></font></summary>
   <br>
   <br> 
 
@@ -420,34 +420,4 @@
   </details>
   <br>
   
- <details><summary><font size="6"><b>8) Align short reads to the reference genome</b></font></summary>
-  <br>
-  <br>  
- 
- We are now ready to map our reads to our reference genome. To do this we will use BWA to align our trimmed sequences to our reference genome.
- <br>
- We have already indexed our genome when we downloaded it. You should have index files with the  extensions '.sa', '.pac', '.ann', '.amb' and '.bwt' that will be automatically detected and used in the mapping step below. 
- 
- bwa mem is an alignment algorithm well suited to Illumina-length sequences. The default output is a SAM (Sequence Alignment Map format). 
- However, here we pipe the output to samtools, a program for writing, viewing and manipulating alignment files, to sort and generate a BAM format, a binary, compressed version of SAM format.
- <br>
- The following script will first map our paired end data generated from trimmomatic to our reference, it will then combine the single end orphan reads into a single file and map those to the genome. 
- The resulting BAM files are then combined into a single file which will be used in the next step to call SNPs.
- 
-  <br>
-  <b>The command line argument you must supply is:</b><br>
-  - the name of your reference genome (-g)
-   <br><br>
-  
-   <br>
- 
-  ```   
- qsub scripts/06_align.sh -g GCA_017639245.1_MMon_1.0_genomic.fna.gz
-  ```  
-  
-  <br>
-  When the 06_align.sh has finished running your BAM files will be located in the 'aligned' folder.
- 
-  </details>
-  <br>
  
