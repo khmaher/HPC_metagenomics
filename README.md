@@ -315,7 +315,9 @@
  <details><summary><font size="6"><b>5)  QC and data trimming</b></font></summary>
   <br>
   <br>    
- 
+ <br>
+  <font size="4"><b>5.1) Initial quality checking</b></font>
+  <br>
   The next step is to check the quality of your fastq files and then perform quality trimming.
   
   First you will run the script to generate the quality plots. This first runs [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) on each sample separately. 
@@ -341,6 +343,11 @@
 - The R2 reads have poorer quality than the R1 reads
 - The read sizes have a range compared to all being one size. However, most of the reads are towards the long end of the range.
 
+  <br>
+  <br>
+  <font size="4"><b>5.2) Running trimmomatic</b></font>
+  <br>
+  
   Generally, even if data is looking good we would carry out quality control to get rid of any poor data that is masked by the very good data and to remove any adapter sequences.
    <br>
    <br>
@@ -401,9 +408,10 @@
  </details>
  <br>
    
- <details><summary><font size="6"><b>6)  Re-check quality</b></font></summary>
+   <br>
   <br>
-  <br> 
+  <font size="4"><b>3.4) Re-check the quality</b></font>
+  <br>
 
   Now we have run trimmomatic we can check how successful our quality control has been but running fastQC and MultiQC again. These 
   can be found in the 'fastqc2' folder when the script has finished running.
