@@ -221,16 +221,17 @@
   # sample2_R1_001.fq.gz
   # sample2_R2_001.fq.gz
   ```
+  Make sure that you have removed any `tar.gz` files and any files labelled unclassified, e.g. `Unclassified_R1` `Unclassified_R2`. 
   
-  Run 'ls' on your 'genome' folder and you should see something like the following
+  Run 'ls' on your 'genome' folder and you should see something like the following (if you have copied over a genome file that you have generated with NEOF).
   
   ```
   ls genome
   # genome.fasta
   ```
+  If you don't yet have a genome file in this folder do not worry. We will cover downloading publically accessible genomes in the following section.
   
-  Make sure that you have removed any `tar.gz` files and any files labelled unclassified, e.g. `Unclassified_R1` `Unclassified_R2`. 
-  <br>
+ <br>
 
   The workflow assumes that the '/fastdata/<user>my_project/raw_data' directory contains sequence data that is:
 
