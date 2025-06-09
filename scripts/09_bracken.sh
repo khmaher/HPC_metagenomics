@@ -53,8 +53,7 @@ for f in $src/kraken2/*.kreport2;
 do FBASE=$(basename $f)
         BASE=${FBASE%.kreport2}
         samtools flagstat $src/aligned/${BASE}.bam > $src/flagstat/${BASE}.flagstat
-        bracken -d /usr/local/extras/Genomics/db/kraken2/kraken2_db -i $src/kraken2/${BASE}.kreport2 -o $src/bracken/${BASE}.bracken -w $src/kraken2/${BASE}.breport2 -r 150 -l S -t 10 
- 		bracken -d $parameterD -i $src/kraken2/${BASE}.kreport2 -o $src/bracken/${BASE}.bracken -w $src/kraken2/${BASE}.breport2 -r $parameterR -l $parameterL -t $parameterT
+        bracken -d $parameterD -i $src/kraken2/${BASE}.kreport2 -o $src/bracken/${BASE}.bracken -w $src/kraken2/${BASE}.breport2 -r $parameterR -l $parameterL -t $parameterT
 
 done
 
