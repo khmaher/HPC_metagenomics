@@ -462,7 +462,7 @@
  qsub scripts/06_remove_host.sh
   ```  
   
-    </details>
+</details>
   <br>
   
  <details><summary><font size="6"><b>7)  Taxonomic profiling with Kraken2 </b></font></summary>
