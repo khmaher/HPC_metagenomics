@@ -461,3 +461,23 @@
   ```   
  qsub scripts/06_remove_host.sh
   ```  
+  
+    </details>
+  <br>
+  
+ <details><summary><font size="6"><b>7)  Taxonomic profiling with Kraken2 </b></font></summary>
+  <br>
+  <br>  
+  
+  There are many different methods for determining the species composition of a metagenomic dataset. Here we will use Kraken2 & Bracken (Bayesian Reestimation of Abundance with KrakEN) to perform this analysis. 
+  
+  Kraken2 classifies short DNA with taxonomic labels and is frequently used for metagenomic studies. 
+  
+  Bracken uses the taxonomic labels assigned by Kraken2 to compute the abundance of species in a set of DNA sequences.
+  
+  <br>
+  <br>  
+  <font size="4"><b>7.1) Kraken 2 </b></font>
+  <br>
+  
+  
