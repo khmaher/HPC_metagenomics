@@ -535,6 +535,8 @@
  ```   
  qsub scripts/09_backen.sh -d /usr/local/extras/Genomics/db/kraken2/kraken2_db -r 150 -l S -t 10 -s 50
   ```
+</details>
+  <br>
   
   <details><summary><font size="6"><b>9)  Humann </b></font></summary>
   <br>
