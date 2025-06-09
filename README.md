@@ -480,4 +480,62 @@
   <font size="4"><b>7.1) Kraken 2 </b></font>
   <br>
   
+  We will now run Kraken2 on our dataset. 
   
+   <br>
+  To run Kraken2 we will use the '07_kraken.sh' script. 
+  By default this script assumes you are using paired end data.
+  <br>
+  <b>The command line arguments you must supply are:</b><br>
+  
+  - the path to the Kraken2 database to be used for taxonomic classification (-g)
+  
+    <br><br>
+    
+ ```   
+ qsub scripts/07_kraken.sh -g /usr/local/extras/Genomics/db/kraken2/kraken2_db
+  ``` 
+  
+    <br>
+  <br>  
+  <font size="4"><b>7.2) Krona plot </b></font>
+  <br>
+  
+  We can create plots using Krona to visualise our Kraken2 outputs. 
+  
+  First run the following script. 
+  
+ ```   
+ qsub scripts/08_krona.sh
+  ```
+  
+  This will have generated a `kraken2.krona.html` file. Download this onto your computer to open in your web browser.
+  
+  </details>
+  <br>
+  
+ <details><summary><font size="6"><b>8)  Bracken </b></font></summary>
+  <br>
+  <br> 
+  
+  Bracken (Bayesian Reestimation of Abundance with KrakEN) uses taxonomy labels assigned by Kraken2 to compute estimated abundances of species in a metagenomic sample.
+
+ <br>
+  <b>The command line arguments you must supply are:</b><br>
+  
+  - the Kraken2 database that was used for taxonomic classification, this is the same path specified in the Kraken step (-d)
+  - the ideal length of the reads that were used in the Kraken2 classification. It is recommended that the initial read length of the sequencing data is used. (-r)
+  - the taxonomic level/rank of the Bracken output. Default S is equal to species with the other options being K (kingdom level), P (phylum), C (class), O (order), F (family), and G (genus)(-l)
+  - the minimum number of reads required for a classification at the specified rank, the default number is 10 (-t)
+  - the number needed to extract the correct columns from the Bracken output. This needs to be 3 (first three info columns) + Your number of samples x 2 (X samples with 2 columns each). e.g. in the case of 24 samples (3 + 24*2 = <b>50</b>)  (-s)
+  <br><br>
+
+  An example of how to run 'Bracken' can be found below. 
+ 
+ ```   
+ qsub scripts/09_backen.sh -d /usr/local/extras/Genomics/db/kraken2/kraken2_db -r 150 -l S -t 10 -s 50
+  ```
+  
+  <details><summary><font size="6"><b>9)  Humann </b></font></summary>
+  <br>
+  <br>
