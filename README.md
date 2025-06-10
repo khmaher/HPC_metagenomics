@@ -496,7 +496,7 @@
  qsub scripts/07_kraken.sh -g /usr/local/extras/Genomics/db/kraken2/kraken2_db
   ``` 
   
-    <br>
+  <br>
   <br>  
   <font size="4"><b>7.2) Krona plot </b></font>
   <br>
