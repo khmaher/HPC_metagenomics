@@ -469,7 +469,7 @@
   <br>
   <br>  
   
-  There are many different methods for determining the species composition of a metagenomic dataset. Here we will use Kraken2 & Bracken (Bayesian Reestimation of Abundance with KrakEN) to perform this analysis. 
+  There are many different methods for determining the species composition of a metagenomic dataset. Here we will use [Kraken2](https://ccb.jhu.edu/software/kraken2/) & [Bracken](https://ccb.jhu.edu/software/bracken/) (Bayesian Reestimation of Abundance with KrakEN) to perform this analysis. 
   
   Kraken2 classifies short DNA with taxonomic labels and is frequently used for metagenomic studies. 
   
@@ -501,7 +501,7 @@
   <font size="4"><b>7.2) Krona plot </b></font>
   <br>
   
-  We can create plots using Krona to visualise our Kraken2 outputs. 
+  We can create plots using [Krona](https://github.com/marbl/Krona/wiki/KronaTools) to visualise our Kraken2 outputs. 
   
   First run the following script. 
   
@@ -541,3 +541,11 @@
   <details><summary><font size="6"><b>9)  Humann </b></font></summary>
   <br>
   <br>
+  
+  We will now run [Humann](https://github.com/biobakery/biobakery/wiki/humann4) to investigate functional differences between metagenome (and metatranscriptome) samples.
+  
+  To run Humann type:
+  
+   ```   
+ qsub scripts/10_humann.sh
+  ```
