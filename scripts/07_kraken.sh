@@ -24,7 +24,7 @@ helpFunction()
 while getopts "d:" opt
 do
    case "$opt" in
-      g ) parameterD="$OPTARG" ;;
+      d ) parameterD="$OPTARG" ;;
       ? ) helpFunction ;; # Print helpFunction in case parameter is non-existent
    esac
 done
