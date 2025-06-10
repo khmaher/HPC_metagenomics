@@ -17,7 +17,7 @@
   Whilst it has been written for use with The University of Sheffield's
   [BESSEMER](https://docs.hpc.shef.ac.uk/en/latest/bessemer/index.html) system,
   the below should be applicable to any GNU/Linux based HPC system, with
-  appropriate modification.
+  appropriate modification (your mileage may vary).
 
   Code which the user (that's you) must run is highlighted in a code block like this:
   ```
@@ -493,7 +493,7 @@
     <br><br>
     
  ```   
- qsub scripts/07_kraken.sh -g /usr/local/extras/Genomics/db/kraken2/kraken2_db
+ qsub scripts/07_kraken.sh -d /usr/local/extras/Genomics/db/kraken2/kraken2_db
   ``` 
   
   <br>
