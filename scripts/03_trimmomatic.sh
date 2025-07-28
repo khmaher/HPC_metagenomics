@@ -11,7 +11,7 @@
 #SBATCH --time=72:00:00
 
 source ~/.bash_profile
-conda activate trimmomatic
+conda activate /usr/local/community/Genomics/apps/mambaforge/envs/trimmomatic
 
 helpFunction()
 {
