@@ -21,20 +21,20 @@ mkdir $src/humann
 
 # cat files
 
-for f in $src/trim/*_trimmed_paired_R1.fastq.gz;
+for f in $src/deacon/*_hostDepleted_R1.fq.gz;
 do              FBASE=$(basename $f)
-        BASE=${FBASE%_trimmed_paired_R1.fastq.gz}
-        cat $src/trim/${BASE}_trimmed_paired_R1.fastq.gz \
-	$src/trim/${BASE}_trimmed_paired_R2.fastq.gz > \
-	$src/cat_files/${BASE}_trimmed_paired.fastq.gz
+        BASE=${FBASE%_hostDepleted_R1.fq.gz}
+        cat $src/deacon/${BASE}_hostDepleted_R1.fq.gz \
+	$src/deacon/${BASE}_hostDepleted_R2.fq.gz > \
+	$src/cat_files/${BASE}_hostDepleted_paired.fastq.gz
 done
 
 # run humann
 
-for f in $src/cat_files/*_trimmed_paired.fastq.gz;
+for f in $src/cat_files/*_hostDepleted_paired.fastq.gz;
 do              FBASE=$(basename $f)
-        BASE=${FBASE%_trimmed_paired.fastq.gz}
-        humann --input $src/cat_files/${BASE}_trimmed_paired.fastq.gz \
+        BASE=${FBASE%_hostDepleted_paired.fastq.gz}
+        humann --input $src/cat_files/${BASE}_hostDepleted_paired.fastq.gz \
 	--output $src/humann/${BASE}_humann_output \
 	--threads 12 
 done
