@@ -416,16 +416,12 @@
   <br>  
   <font size="4"><b>6.1) Alignment</b></font>
   <br>
-  To remove the host sequences we must first align our reads to the host genome. To do this we will use <b>BWA</b> to align our trimmed sequences to our reference genome.
+  To remove the host sequences we will use a software called [deacon](https://github.com/bede/deacon).
       
- We have already indexed our genome when we downloaded it. You should have index files with the  extensions '.sa', '.pac', '.ann', '.amb' and '.bwt' that will be automatically detected and used in the mapping step below. 
- 
- bwa mem is an alignment algorithm well suited to Illumina-length sequences. The default output is a SAM (Sequence Alignment Map format). 
- However, here we pipe the output to samtools, a program for writing, viewing and manipulating alignment files, to sort and generate a BAM format, a binary, compressed version of SAM format.
+ Deacon is a fast sequence filtering tool which uses the genome of the species we want to remove to deplete the unwanted host reads. 
  <br>
  
- The following script will first map our paired end data generated from trimmomatic to our reference, it will then combine the single end orphan reads into a single file and map those to the genome. 
- The resulting BAM files are then combined into a single file which will be used in the next step to call SNPs.
+ The following script will first index the host genome file and then filter each of our trimmed files to remove the unwanted sequences.
  
   <br>
   <b>The command line argument you must supply is:</b><br>
@@ -435,32 +431,14 @@
    <br>
  
   ```   
- qsub scripts/05_align.sh -g GCA_017639245.1_MMon_1.0_genomic.fna.gz
+ qsub scripts/05_deacon.sh -g GCA_017639245.1_MMon_1.0_genomic.fna.gz
   ```  
   
   <br>
-  When the 05_align.sh has finished running your BAM files will be located in the 'aligned' folder.
+  When the 05_deacon.sh has finished running your paired host depleted files will be located in the 'deacon' folder.
  
   <br>
   <br>  
-  <font size="4"><b>6.2) Unmapped read extraction</b></font>
-  <br>
-  
-  We can check our mapping efficacy using [samtools flagstat](https://www.htslib.org/doc/samtools-flagstat.html). This produces a file which contains information on the number of reads that have mapped to the host genome.
-  
-  Now we have aligned our reads to our host genome we will be able to remove the mapped reads/retain the unmapped reads. The unmapped reads should mostly be the reads from our target taxa of interest.
-  
-  We will perform this using <b>samtools fastq</b>. We use the -f parameter to output only reads that contain the specified SAM flag.
-  
-  In this case in our script we specify a SAM flag of <b>4</b> which stands for unmapped reads. Therefore, our resulting fastq files will only contain unmapped reads.
-  
-  After we have discarded any mapped reads we use the [BBTools](https://archive.jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/) command <b>re-pair</b> to remove reads with a missing pair to ensure our output files have identical numbers of sequences in them.
-
- <br>
- 
-  ```   
- qsub scripts/06_remove_host.sh
-  ```  
   
 </details>
   <br>
