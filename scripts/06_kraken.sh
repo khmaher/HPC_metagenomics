@@ -44,9 +44,9 @@ mkdir $src/kraken2
 
 # run kraken2
 
-for f in $src/host_removed/*_R1.final.fastq;
+for f in $src/deacon/*_hostDepleted_R1.fq.gz;
 do FBASE=$(basename $f)
-	BASE=${FBASE%_R1.final.fastq} 
-	kraken2 --threads 20 --paired --db $parameterD --output $src/kraken2/${BASE}.kraken --report $src/kraken2/${BASE}.kreport2 $src/host_removed/${BASE}_R1.final.fastq $src/host_removed/${BASE}_R2.final.fastq
+	BASE=${FBASE%_hostDepleted_R1.fq.gz} 
+	kraken2 --threads 20 --paired --db $parameterD --output $src/kraken2/${BASE}.kraken --report $src/kraken2/${BASE}.kreport2 $src/deacon/${BASE}_hostDepleted_R1.fq.gz $src/deacon/${BASE}_hostDepleted_R2.fq.gz
 done
 
