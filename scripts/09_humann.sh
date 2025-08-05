@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#SBATCH --job-name=10_humann
-#SBATCH --output=10_humann.log
+#SBATCH --job-name=09_humann
+#SBATCH --output=09_humann.log
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=12
 #SBATCH --mem-per-cpu=4GB
