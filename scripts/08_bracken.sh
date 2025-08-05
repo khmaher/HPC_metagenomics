@@ -52,7 +52,6 @@ mkdir $src/bracken
 for f in $src/kraken2/*.kreport2;
 do FBASE=$(basename $f)
         BASE=${FBASE%.kreport2}
-        samtools flagstat $src/aligned/${BASE}.bam > $src/flagstat/${BASE}.flagstat
         bracken -d $parameterD -i $src/kraken2/${BASE}.kreport2 -o $src/bracken/${BASE}.bracken -w $src/kraken2/${BASE}.breport2 -r $parameterR -l $parameterL -t $parameterT
 
 done
