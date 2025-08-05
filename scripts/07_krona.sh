@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#SBATCH --job-name=08_krona
-#SBATCH --output=08_krona.log
+#SBATCH --job-name=07_krona
+#SBATCH --output=07_krona.log
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --mem-per-cpu=16GB
