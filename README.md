@@ -414,9 +414,9 @@
  <details><summary><font size="6"><b>6)  Host removal</b></font></summary>
   <br>
   <br>  
-  <font size="4"><b>6.1) Alignment</b></font>
+  <font size="4"><b>6.1) Host depletion with Deacon </b></font>
   <br>
-  To remove the host sequences we will use a software called [deacon](https://github.com/bede/deacon).
+  To remove the host sequences we will use a software called [Deacon](https://github.com/bede/deacon).
       
  Deacon is a fast sequence filtering tool which uses the genome of the species we want to remove to deplete the unwanted host reads. 
  <br>
