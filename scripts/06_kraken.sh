@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#SBATCH --job-name=07_kraken
-#SBATCH --output=07_kraken.log
+#SBATCH --job-name=06_kraken
+#SBATCH --output=06_kraken.log
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=20
 #SBATCH --mem-per-cpu=8GB
