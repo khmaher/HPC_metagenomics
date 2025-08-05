@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#SBATCH --job-name=09_bracken
-#SBATCH --output=09_bracken.log
+#SBATCH --job-name=08_bracken
+#SBATCH --output=08_bracken.log
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --mem-per-cpu=16GB
