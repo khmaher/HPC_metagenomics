@@ -463,7 +463,7 @@
   We will now run Kraken2 on our dataset. 
   
    <br>
-  To run Kraken2 we will use the '07_kraken.sh' script. 
+  To run Kraken2 we will use the '06_kraken.sh' script. 
   By default this script assumes you are using paired end data.
   <br>
   <b>The command line arguments you must supply are:</b><br>
@@ -473,7 +473,7 @@
     <br><br>
     
  ```   
- qsub scripts/07_kraken.sh -d /usr/local/extras/Genomics/db/kraken2/kraken2_db
+ qsub scripts/06_kraken.sh -d /usr/local/extras/Genomics/db/kraken2/kraken2_db
   ``` 
   
   <br>
@@ -486,7 +486,7 @@
   First run the following script. 
   
  ```   
- qsub scripts/08_krona.sh
+ qsub scripts/07_krona.sh
   ```
   
   This will have generated a `kraken2.krona.html` file. Download this onto your computer to open in your web browser.
@@ -513,7 +513,7 @@
   An example of how to run 'Bracken' can be found below. 
  
  ```   
- qsub scripts/09_backen.sh -d /usr/local/extras/Genomics/db/kraken2/kraken2_db -r 150 -l S -t 10 -s 50
+ qsub scripts/08_bracken.sh -d /usr/local/extras/Genomics/db/kraken2/kraken2_db -r 150 -l S -t 10 -s 50
   ```
 </details>
   <br>
@@ -527,5 +527,5 @@
   To run Humann type:
   
    ```   
- qsub scripts/10_humann.sh
+ qsub scripts/09_humann.sh
   ```
