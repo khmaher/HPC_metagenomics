@@ -11,7 +11,7 @@
 #SBATCH --time=24:00:00
 
 source ~/.bash_profile
-mamba activate deacon
+conda activate /usr/local/community/Genomics/apps/mambaforge/envs/deacon
 
 helpFunction()
 {
