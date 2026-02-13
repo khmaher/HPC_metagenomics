@@ -9,7 +9,7 @@
 #SBATCH --time=72:00:00
 
 source ~/.bash_profile
-conda activate /usr/local/community/Genomics/apps/mambaforge/envs/trimmomatic
+conda activate rnaseq
 
 helpFunction()
 {
