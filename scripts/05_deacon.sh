@@ -5,13 +5,11 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=8
-#SBATCH -A molecolb
-#SBATCH -p molecolb
 #SBATCH --mem-per-cpu=4GB
 #SBATCH --time=24:00:00
 
 source ~/.bash_profile
-conda activate /usr/local/community/Genomics/apps/mambaforge/envs/deacon
+conda activate shotgun_meta
 
 helpFunction()
 {
