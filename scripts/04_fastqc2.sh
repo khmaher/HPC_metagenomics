@@ -5,13 +5,11 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
-#SBATCH -A molecolb
-#SBATCH -p molecolb
 #SBATCH --mem-per-cpu=12GB
 #SBATCH --time=24:00:00
 
 source ~/.bash_profile
-conda activate multiqc
+conda activate shotgun_meta
 
 src=$PWD
 
