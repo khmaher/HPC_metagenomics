@@ -156,7 +156,7 @@
   <br>
   <font size="4"><b>3.1) Create a working directory and load your data</b></font>
   <br>
-  You should work in the directory '/mnt/parscratch/users' on BESSEMER as this allows shared access to your files
+  You should work in the directory '/mnt/parscratch/users' on STANAGE as this allows shared access to your files
   and commands, useful for troubleshooting.
 
   Check if you already have a directory in '/mnt/parscratch/users' by running the command exactly as it appears below.
@@ -186,7 +186,7 @@
   <font size="4"><b>3.2) Required data inputs</b></font>
   <br>
   For this workflow, you need to provide the raw, paired-end DNA sequence data
-  and also a reference genome to align this data to.
+  and (if you are expecting to find alot of host DNA) also a host reference genome to align this data to.
   <br>
   <br>
   <font size="4"><b>3.3) Load required data onto the HPC</b></font>
@@ -224,7 +224,7 @@
   Make sure that you have removed any `tar.gz` files and any files labelled unclassified, e.g. `Unclassified_R1` `Unclassified_R2`. 
   <br>
 
-  The workflow assumes that the '/mnt/parscratch/users/<user>my_project/raw_data' directory contains sequence data that is:
+  The workflow assumes that the '/mnt/parscratch/users/<user>/my_project/raw_data' directory contains sequence data that is:
 
   * Paired (two files per biological sample)
 
@@ -250,7 +250,7 @@
   <br>
   <b><font size="4">3.4) Copy the analysis scripts</b></font>
   <br>
-  Download the scripts from this github repository and then copy them into your scripts folder. You can then delete the github download.
+  In order to perform our analysis we will first need to download the scripts from this github repository. We will then copy them into your scripts folder. You can then delete the github download.
 
   ```
   git clone "https://github.com/khmaher/HPC_metagenomics"
@@ -264,7 +264,7 @@
   <br>
   <br>
   
-  Now we are set up we are ready to start preparing your data. The first thing you want to do is to add your reference genome. 
+  Now we are set up we are ready to start preparing your data. The first thing you want to do is to add your reference genome. If you do not need to remove host DNA sequences from your sequencing data you can skip this step and move onto section 5.
   <br>
   If you have not generated the genome file yourself and it is available on a public repository you can use the 
   '01_download_geome.sh' script. 
@@ -418,7 +418,7 @@
   <br>
 
      
-  To remove the host sequences we will use a software called [Deacon](https://github.com/bede/deacon).
+  The next step is optional and the aim is to remove contaminating host sequences from your files. To remove the host sequences we will use a software called [Deacon](https://github.com/bede/deacon).
       
  Deacon is a fast sequence filtering tool which uses the genome of the species we want to remove to deplete the unwanted host reads. 
  <br>
@@ -437,7 +437,7 @@
   ```  
   
   <br>
-  When the 05_deacon.sh has finished running your paired host depleted files will be located in the 'deacon' folder.
+  When the 05_deacon.sh has finished running your paired host depleted files will be located in the 'deacon' folder. You should have two files for each sample and they will have the file extensions '_hostDepleted_R1.fq.gz' and '_hostDepleted_R2.fq.gz'
  
   <br>
   <br>  
@@ -469,12 +469,20 @@
   <b>The command line arguments you must supply are:</b><br>
   
   - the path to the Kraken2 database to be used for taxonomic classification (-g)
+  - the name of the directory in which the files you are wanting to classify are located, this will either be your host depleted 'deacon' directory or your 'trim' directory if you did not perform host removal (-d)
+  - the file extension for your forward reads (-f)
+  - the file extension for your reverse reads (-r)
+  - the [confidence score threshold](https://github.com/DerrickWood/kraken2/wiki/Manual#confidence-scoring) [default is 0.0] (-c)
   
     <br><br>
+ 
+ You can find a formatted kraken2 database here: `/mnt/parscratch/datasets/genomicsdb/shared/kraken2/`
     
  ```   
- qsub scripts/06_kraken.sh -d /mnt/parscratch/datasets/genomicsdb/shared/kraken2/kraken2_db
+ qsub scripts/06_kraken.sh -d /mnt/parscratch/datasets/genomicsdb/shared/kraken2/kraken2_db 
   ``` 
+  
+  Once Kraken2 has finished running you should find two major output files in your `kraken2` directory. You should have a `.kraken` file and a `.kreport2` file. There should be one of each of these output files for each of your samples. If you only have these files for some of your samples you should double check whether the script timed out before finishing its task.
   
   <br>
   <br>  
