@@ -14,21 +14,27 @@ conda activate shotgun_meta
 helpFunction()
 {
    echo ""
-   echo "Usage: $0 -d parameterD"
-   echo -e "\t-d the location of your Kraken database"
+   echo "Usage: $0 -k parameterK -d parameterD -f parameterF -r parameterR"
+   echo -e "\t-k the location of your Kraken database"
+   echo -e "\t-d the directory containing your input data files"
+   echo -e "\t-f the file extension for your forward reads"
+   echo -e "\t-r the file extension for your reverse reads"
    exit 1 # Exit script after printing help
 }
 
-while getopts "d:" opt
+while getopts "k:d:f:r:" opt
 do
    case "$opt" in
+   	  k ) parameterK="$OPTARG" ;;
       d ) parameterD="$OPTARG" ;;
+	  f ) parameterF="$OPTARG" ;;
+      r ) parameterR="$OPTARG" ;;
       ? ) helpFunction ;; # Print helpFunction in case parameter is non-existent
    esac
 done
 
 # Print helpFunction in case parameters are empty
-if [ -z "$parameterD" ]
+if [ -z "$parameterK" ] || [ -z "$parameterD" ] || [ -z "$parameterF" ] || [ -z "$parameterR" ]
 then
    echo "Some or all of the parameters are empty";
    helpFunction
@@ -45,6 +51,6 @@ mkdir $src/kraken2
 for f in $src/deacon/*_hostDepleted_R1.fq.gz;
 do FBASE=$(basename $f)
 	BASE=${FBASE%_hostDepleted_R1.fq.gz} 
-	kraken2 --threads 20 --paired --db $parameterD --output $src/kraken2/${BASE}.kraken --report $src/kraken2/${BASE}.kreport2 $src/deacon/${BASE}_hostDepleted_R1.fq.gz $src/deacon/${BASE}_hostDepleted_R2.fq.gz
+	kraken2 --threads 20 --paired --db $parameterK --output $src/kraken2/${BASE}.kraken --report $src/kraken2/${BASE}.kreport2 $src/$parameterD/${BASE}_hostDepleted_R1.fq.gz $src/$parameterD/${BASE}_hostDepleted_R2.fq.gz
 done
 
