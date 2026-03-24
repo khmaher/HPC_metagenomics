@@ -468,7 +468,7 @@
   <br>
   <b>The command line arguments you must supply are:</b><br>
   
-  - the path to the Kraken2 database to be used for taxonomic classification (-g)
+  - the path to the Kraken2 database to be used for taxonomic classification (-k)
   - the name of the directory in which the files you are wanting to classify are located, this will either be your host depleted 'deacon' directory or your 'trim' directory if you did not perform host removal (-d)
   - the file extension for your forward reads (-f)
   - the file extension for your reverse reads (-r)
@@ -479,7 +479,7 @@
  You can find a formatted kraken2 database here: `/mnt/parscratch/datasets/genomicsdb/shared/kraken2/`
     
  ```   
- qsub scripts/06_kraken.sh -d /mnt/parscratch/datasets/genomicsdb/shared/kraken2/kraken2_db 
+ qsub scripts/06_kraken.sh -k /mnt/parscratch/datasets/genomicsdb/shared/kraken2/kraken2_db -d deacon -f _hostDepleted_R1.fq.gz -r _hostDepleted_R2.fq.gz -c 0.0
   ``` 
   
   Once Kraken2 has finished running you should find two major output files in your `kraken2` directory. You should have a `.kraken` file and a `.kreport2` file. There should be one of each of these output files for each of your samples. If you only have these files for some of your samples you should double check whether the script timed out before finishing its task.
