@@ -508,7 +508,7 @@
   
   Bracken (Bayesian Reestimation of Abundance with KrakEN) uses taxonomy labels assigned by Kraken2 to compute estimated abundances of species in a metagenomic sample.
   
-  Bracken uses the Kraken2 report files to run.
+  Bracken uses the Kraken2 report files to run. The following script will also create a single collated [biom](https://biom-format.org) file from the bracken report files which can be used for downstream community analysis. As Biom files are not human readable the script will also create a tsv (tab separated value) file which can be manually inspected.
 
  <br>
   <b>The command line arguments you must supply are:</b><br>
@@ -517,13 +517,12 @@
   - the ideal length of the reads that were used in the Kraken2 classification. It is recommended that the initial read length of the sequencing data is used. (-r)
   - the taxonomic level/rank of the Bracken output. Default S is equal to species with the other options being K (kingdom level), P (phylum), C (class), O (order), F (family), and G (genus)(-l)
   - the minimum number of reads required for a classification at the specified rank, the default number is 10 (-t)
-  - the number needed to extract the correct columns from the Bracken output. This needs to be 3 (first three info columns) + Your number of samples x 2 (X samples with 2 columns each). e.g. in the case of 24 samples (3 + 24*2 = <b>50</b>)  (-s)
-  <br><br>
+ <br><br>
 
   An example of how to run 'Bracken' can be found below. 
  
  ```   
- qsub scripts/08_bracken.sh -d /mnt/parscratch/datasets/genomicsdb/shared/kraken2/kraken2_db -r 150 -l S -t 10 -s 50
+ qsub scripts/08_bracken.sh -d /mnt/parscratch/datasets/genomicsdb/shared/kraken2/kraken2_db -r 150 -l S -t 10
   ```
 </details>
   <br>
