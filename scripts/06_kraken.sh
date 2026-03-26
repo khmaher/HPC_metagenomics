@@ -30,7 +30,7 @@ do
       d ) parameterD="$OPTARG" ;;
 	  f ) parameterF="$OPTARG" ;;
       r ) parameterR="$OPTARG" ;;
-	  c ) parameterR="$OPTARG" ;;
+	  c ) parameterC="$OPTARG" ;;
       ? ) helpFunction ;; # Print helpFunction in case parameter is non-existent
    esac
 done
