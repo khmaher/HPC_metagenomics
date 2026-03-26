@@ -507,6 +507,8 @@
   <br> 
   
   Bracken (Bayesian Reestimation of Abundance with KrakEN) uses taxonomy labels assigned by Kraken2 to compute estimated abundances of species in a metagenomic sample.
+  
+  Bracken uses the Kraken2 report files to run.
 
  <br>
   <b>The command line arguments you must supply are:</b><br>
@@ -526,14 +528,34 @@
 </details>
   <br>
   
-  <details><summary><font size="6"><b>9)  Humann </b></font></summary>
+  <details><summary><font size="6"><b>9)  HUMAnN </b></font></summary>
   <br>
   <br>
   
-  We will now run [Humann](https://github.com/biobakery/biobakery/wiki/humann4) to investigate functional differences between metagenome (and metatranscriptome) samples.
+  We will now run [HUMAnN](https://github.com/biobakery/biobakery/wiki/humann4) to investigate functional differences between metagenome samples. HUMAnN is a [bioBakery](https://github.com/biobakery/biobakery) pipeline designed to accurately profile the presence/absence and abundance of microbial pathways in metagenomic sequencing data.
   
-  To run Humann type:
+  To run HUMAnN on paired end reads the developers recommend first concatenating your reads into one file and then running HUMAnN on this concatenated file. The script below will do this for you before running HUMAnN.
+  
+  HUMAnN will then run [MetaPhlAN](https://huttenhower.sph.harvard.edu/metaphlan3/). to identify what species are present in the sample, so HUMAnN can tailor generate an appropriate database of genes (from those species) to map against. It will carry out this alignment against the gene database, then a protein database, and finally compute which gene families are present. HUMAnN will determine which functional pathways are present and how abundant they are.
+  
+  <br>
+  <b>The command line arguments you must supply are:</b><br>
+  
+ - the name of the directory in which the files you are wanting to classify are located, this will either be your host depleted 'deacon' directory or your 'trim' directory if you did not perform host removal (-d)
+  - the file extension for your forward reads (-f)
+  - the file extension for your reverse reads (-r)
+  - the [confidence score threshold](https://github.com/DerrickWood/kraken2/wiki/Manual#confidence-scoring) [default is 0.0] (-c)
+  
+    <br><br>
+  
+  
+  For example, to run 'HUMAnN' using host decontaminated files you would type:
   
    ```   
- qsub scripts/09_humann.sh
+ qsub scripts/09_humann.sh -d deacon -f _hostDepleted_R1.fq.gz -r _hostDepleted_R2.fq.gz
   ```
+
+Once HUMAnN has finished running you should have three output files per sample: a '_genefamilies.tsv' file, a '_pathabundance.tsv' file and '_pathcoverage.tsv' file. 
+You will also find temporary files in directories with the extension '_humann_temp'. These can be used with debugging if the output seems odd or if you get a warning/error message when running HUMAnN. More information about the intermediary files can be found [here](https://github.com/biobakery/humann?tab=readme-ov-file#5-intermediate-temp-output-files). Once you are happy with your HUMAnN run you can delete these temporary files as they take up a large amount of space.
+
+
