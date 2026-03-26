@@ -544,8 +544,7 @@
  - the name of the directory in which the files you are wanting to classify are located, this will either be your host depleted 'deacon' directory or your 'trim' directory if you did not perform host removal (-d)
   - the file extension for your forward reads (-f)
   - the file extension for your reverse reads (-r)
-  - the [confidence score threshold](https://github.com/DerrickWood/kraken2/wiki/Manual#confidence-scoring) [default is 0.0] (-c)
-  
+
     <br><br>
   
   
@@ -556,6 +555,7 @@
   ```
 
 Once HUMAnN has finished running you should have three output files per sample: a '_genefamilies.tsv' file, a '_pathabundance.tsv' file and '_pathcoverage.tsv' file. 
+
 You will also find temporary files in directories with the extension '_humann_temp'. These can be used with debugging if the output seems odd or if you get a warning/error message when running HUMAnN. More information about the intermediary files can be found [here](https://github.com/biobakery/humann?tab=readme-ov-file#5-intermediate-temp-output-files). Once you are happy with your HUMAnN run you can delete these temporary files as they take up a large amount of space.
 
 
