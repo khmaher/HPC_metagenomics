@@ -116,12 +116,12 @@
   <font size="4"><b>2.5) Running scripts on the HPC cluster</b></font>
   <br>
   
-  To add our job to the job scheduler, we would submit the shell scripts using 'qsub'
+  To add our job to the job scheduler, we would submit the shell scripts using 'sbatch'
   (don't do this its simply an example).
 
   ```
   ## EXAMPLE, DON'T RUN
-  qsub scripts/example_script.sh
+  sbatch scripts/example_script.sh
   ```
 
   We could then view the job that we have submitted to the job queue using 'squeue'.
@@ -279,7 +279,7 @@
   <br><br>
   
   ``` 
- qsub scripts/01_download_genome.sh \
+ sbatch scripts/01_download_genome.sh \
  -w https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/017/639/245/GCA_017639245.1_MMon_1.0/GCA_017639245.1_MMon_1.0_genomic.fna.gz \
  -g GCA_017639245.1_MMon_1.0_genomic.fna.gz
   ```
@@ -320,7 +320,7 @@
   
   
   ```   
- qsub scripts/02_fastqc.sh -f _1.fastq.gz -r _2.fastq.gz
+ sbatch scripts/02_fastqc.sh -f _1.fastq.gz -r _2.fastq.gz
   ``` 
   
   <br>
@@ -385,7 +385,7 @@
  <br><br>
  
  ```   
- qsub scripts/03_trimmomatic.sh -f _1.fastq.gz -r _2.fastq.gz \
+ sbatch scripts/03_trimmomatic.sh -f _1.fastq.gz -r _2.fastq.gz \
  -k ILLUMINACLIP:TruSeq3-PE-2.fa:2:30:12 \
  -s SLIDINGWINDOW:4:30 \
  -m MINLEN:80
@@ -403,7 +403,7 @@
    <br> 
 
   ```   
- qsub scripts/04_fastqc2.sh
+ sbatch scripts/04_fastqc2.sh
   ```   
   <br><br>
   If you are not satisfied with the quality or number of reads retained after filtering you can go back to the trimmomatic step and repeat the quality control but changing the parameters.
@@ -433,7 +433,7 @@
    <br>
  
   ```   
- qsub scripts/05_deacon.sh -g GCA_017639245.1_MMon_1.0_genomic.fna.gz
+ sbatch scripts/05_deacon.sh -g GCA_017639245.1_MMon_1.0_genomic.fna.gz
   ```  
   
   <br>
@@ -479,7 +479,7 @@
  You can find a formatted kraken2 database here: `/mnt/parscratch/datasets/genomicsdb/shared/kraken2/`
     
  ```   
- qsub scripts/06_kraken.sh -k /mnt/parscratch/datasets/genomicsdb/shared/kraken2/kraken2_db -d deacon -f _hostDepleted_R1.fq.gz -r _hostDepleted_R2.fq.gz -c 0.0
+ sbatch scripts/06_kraken.sh -k /mnt/parscratch/datasets/genomicsdb/shared/kraken2/kraken2_db -d deacon -f _hostDepleted_R1.fq.gz -r _hostDepleted_R2.fq.gz -c 0.0
   ``` 
   
   Once Kraken2 has finished running you should find two major output files in your `kraken2` directory. You should have a `.kraken` file and a `.kreport2` file. There should be one of each of these output files for each of your samples. If you only have these files for some of your samples you should double check whether the script timed out before finishing its task.
@@ -494,7 +494,7 @@
   First run the following script. 
   
  ```   
- qsub scripts/07_krona.sh
+ sbatch scripts/07_krona.sh
   ```
   
   This will have generated a `kraken2.krona.html` file. Download this onto your computer to open in your web browser.
@@ -522,7 +522,7 @@
   An example of how to run 'Bracken' can be found below. 
  
  ```   
- qsub scripts/08_bracken.sh -d /mnt/parscratch/datasets/genomicsdb/shared/kraken2/kraken2_db -r 150 -l S -t 10
+ sbatch scripts/08_bracken.sh -d /mnt/parscratch/datasets/genomicsdb/shared/kraken2/kraken2_db -r 150 -l S -t 10
   ```
 </details>
   <br>
@@ -550,7 +550,7 @@
   For example, to run 'HUMAnN' using host decontaminated files you would type:
   
    ```   
- qsub scripts/09_humann.sh -d deacon -f _hostDepleted_R1.fq.gz -r _hostDepleted_R2.fq.gz
+ sbatch scripts/09_humann.sh -d deacon -f _hostDepleted_R1.fq.gz -r _hostDepleted_R2.fq.gz
   ```
 
 Once HUMAnN has finished running you should have three output files per sample: a '_genefamilies.tsv' file, a '_pathabundance.tsv' file and '_pathcoverage.tsv' file. 
