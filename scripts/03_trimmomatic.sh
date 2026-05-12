@@ -9,7 +9,7 @@
 #SBATCH --time=72:00:00
 
 source ~/.bash_profile
-conda activate trimmomatic
+module load Java/17.0.4
 
 helpFunction()
 {
@@ -69,7 +69,7 @@ mkdir $src/trim
 for f in $src/raw_data/*$parameterF;
 do FBASE=$(basename $f)
 	BASE=${FBASE%$parameterF}
-	trimmomatic PE -threads 4 -phred33 \
+	java -jar /mnt/community/Genomics/bin/trimmomatic-0.40.jar PE -threads 4 -phred33 \
 	$src/raw_data/${BASE}$parameterF \
 	$src/raw_data/${BASE}$parameterR \
 	$src/trim/${BASE}_trimmed_paired_R1.fastq.gz \
