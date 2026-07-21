@@ -18,4 +18,4 @@ mkdir $src/krona
 
 # run krona
 
-ktImportTaxonomy -o $src/krona/kraken2.krona.html $src/kraken2/*.kreport2
+ktImportTaxonomy -o $src/krona/kraken2.krona.html $src/kraken2/*.kreport2 -t 5
