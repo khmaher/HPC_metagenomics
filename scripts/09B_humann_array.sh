@@ -6,8 +6,8 @@
 #SBATCH --time=96:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=12
-#SBATCH --mem=6G
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=60G
 #SBATCH --mail-type=END
 #SBATCH --mail-user=user@uni.ac.uk
 
@@ -24,7 +24,7 @@ MANIFEST="sample_chunks.tsv"
 
 # make output directory
 
-mkdir $OUTPUT_DIR
+mkdir -p $OUTPUT_DIR
 
 # Read the specific line corresponding to this array task ID
 CHUNK_LINE=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$MANIFEST")
@@ -40,13 +40,23 @@ for SAMPLE in "${SAMPLES[@]}"; do
     echo "Starting HUMAnN for sample: ${SAMPLE}"
     echo "=========================================="
     
-    INPUT_FASTQ="${CONCAT_DIR}/${SAMPLE}_paired.fastq.gz"
+    INPUT_FASTQ="${CONCAT_DIR}/${SAMPLE}_paired.fastq"
     SAMPLE_OUT="${OUTPUT_DIR}/${SAMPLE}"
+    
+    # Define expected final output file (HUMAnN names files based on input filename prefix)
+    GENEFAMILIES_FILE="${SAMPLE_OUT}/${SAMPLE}_paired_genefamilies.tsv"
+    
+    # Check if HUMAnN has already successfully run for this sample
+    if [ -f "$GENEFAMILIES_FILE" ]; then
+        echo "Skipping ${SAMPLE}: Final output file already exists at ${GENEFAMILIES_FILE}"
+        continue
+    fi
 
     humann \
         --input "$INPUT_FASTQ" \
         --output "$SAMPLE_OUT" \
-        --threads "$SLURM_CPUS_PER_TASK"
+        --threads 8 \
+        --resume
 
     echo "Finished sample: ${SAMPLE}"
 done
